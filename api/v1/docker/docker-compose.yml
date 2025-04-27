@@ -1,0 +1,38 @@
+services:
+  db:
+    build: db
+    env_file: ".env"
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "${POSTGRESQL_USERNAME}"]
+      interval: 1s
+      timeout: 1s
+      retries: 5
+    volumes:
+      - lifeconquest-db:/bitnami/postgresql
+
+  backend:
+    build:
+      context: ..
+      dockerfile: docker/backend/Dockerfile
+    env_file: ".env"
+    ports:
+      - 8000:8000
+    volumes:
+      - ../:/lifeconquest
+    depends_on:
+      db:
+        condition: service_healthy
+    command: sh -c "alembic upgrade head && gunicorn -k uvicorn.workers.UvicornWorker --bind 0.0.0.0:8000 --keyfile=/etc/letsencrypt/live/lifeconquest.ru/privkey.pem --certfile=/etc/letsencrypt/live/lifeconquest.ru/cert.pem --reload main:app"
+
+  server:
+    build: server
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - backend
+    volumes:
+      - ./server/front:/front
+
+volumes:
+  lifeconquest-db:

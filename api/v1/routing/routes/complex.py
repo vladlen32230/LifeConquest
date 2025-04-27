@@ -1,0 +1,9 @@
+from routing.routes_constructors.post.duel import construct_post_duel_v1
+from routing.routes_constructors.post.clan_war import construct_post_clan_war_v1
+from routing.routes_constructors.post.clan_membership import construct_post_clan_membership_v1
+from routing.routes_constructors.specific.users import construct_get_user_info_route_v1
+
+complex_post_duel_v1 = construct_post_duel_v1()
+complex_post_clan_war_v1 = construct_post_clan_war_v1()
+complex_post_clan_membership_v1 = construct_post_clan_membership_v1()
+complex_get_user_info_v1 = construct_get_user_info_route_v1()

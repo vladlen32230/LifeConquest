@@ -1,0 +1,3 @@
+from routing.routes_constructors.auth import construct_get_jwt_route_v1
+
+get_jwt_route_v1 = construct_get_jwt_route_v1()
