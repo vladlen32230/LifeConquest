@@ -1,0 +1,17 @@
+apiVersion: "acid.zalan.do/v1"
+kind: postgresql
+metadata:
+  name: lifeconquest-db-cluster
+spec:
+  teamId: "lifeconquest"
+  volume:
+    size: 1Gi
+    storageClass: standard
+  numberOfInstances: 2
+  users:
+    app_user:
+    - superuser
+  databases:
+    lifeconquest_db: app_user
+  postgresql:
+    version: "16"

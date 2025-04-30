@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: backend-config
+data:
+  POSTGRESQL_DATABASE: "lifeconquest_db"
+  POSTGRESQL_PORT_NUMBER: "5432"
+  POSTGRESQL_HOSTNAME: "lifeconquest-db-cluster"
